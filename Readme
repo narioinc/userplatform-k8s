@@ -11,7 +11,7 @@ helm install mysql-operator mysql-operator/mysql-operator --namespace platform
 
 # Install innodb cluster
 
-helm install mysqlcluster mysql-operator/mysql-innodbcluster --namespace usermanagement --create-namespace --set credentials.root.user='root' --set credentials.root.password='password' --set credentials.root.host='%' --set serverInstances=1 --set routerInstances=1 --set tls.useSelfSigned=true
+helm install mysqlcluster mysql-operator/mysql-innodbcluster --namespace platform --create-namespace --set credentials.root.user='root' --set credentials.root.password='password' --set credentials.root.host='%' --set serverInstances=1 --set routerInstances=1 --set tls.useSelfSigned=true
 
 
 # Check db:
@@ -30,7 +30,7 @@ MySQL mycluster JS>
 # Intall strimzi (kafka operator)
 
 helm repo add strimzi https://strimzi.io/charts/
-helm install strimzi/strimzi-kafka-operator
+helm install strimzi strimzi/strimzi-kafka-operator -n platform
 
 create a cluster using a standard cluster def. see kafka-cluster.yaml inside the k8s resources folder.
 create a topic using the kafka-topic.yaml inside the k8s resource folder
@@ -49,3 +49,7 @@ kubectl label ns usermanagement istio-injection=enabled
 
 # Inject the usermanagement namespace with istio:
 kubectl label namespace usermanagement istio-injection=enabled --overwrite
+
+# install argocd
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
