@@ -1,0 +1,9 @@
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: usermanagement
+spec:
+  host: localhost
+  trafficPolicy:
+    loadBalancer:
+      simple: LEAST_REQUEST

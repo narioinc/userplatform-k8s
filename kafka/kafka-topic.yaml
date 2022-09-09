@@ -1,0 +1,32 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: userapi
+  labels:
+    strimzi.io/cluster: "my-cluster"
+spec:
+  partitions: 3
+  replicas: 1
+---
+
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: usergroupapi
+  labels:
+    strimzi.io/cluster: "my-cluster"
+spec:
+  partitions: 3
+  replicas: 1
+
+---
+
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: licenseapi
+  labels:
+    strimzi.io/cluster: "my-cluster"
+spec:
+  partitions: 3
+  replicas: 1

@@ -1,0 +1,39 @@
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: usermanagement
+spec:
+  host: localhost
+  upstreams:
+  - name: userapi
+    service: user-api
+    port: 80
+  - name: usergroupapi
+    service: usergroup-api
+    port: 80
+  - name: licenseapi
+    service: license-api
+    port: 80
+  - name: usermanagementui
+    service: usermanagement-ui
+    port: 80  
+  routes:
+  - path: /api/users
+    action:
+      proxy:
+        upstream: userapi
+        rewritePath: /users
+  - path: /api/usergroup
+    action:
+      proxy:
+        upstream: usergroupapi
+        rewritePath: /usergroup
+  - path: /api/license
+    action:
+      proxy:
+        upstream: licenseapi
+        rewritePath: /license
+  - path: /
+    action:
+      proxy:
+        upstream: usermanagementui                 
