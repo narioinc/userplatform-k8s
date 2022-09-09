@@ -1,0 +1,51 @@
+# install minikube
+
+Follow steps here https://minikube.sigs.k8s.io/docs/start/
+Run minikube start in a terminal after installation
+
+# Setup mysql operator
+
+helm repo add mysql-operator https://mysql.github.io/mysql-operator/
+helm repo update
+helm install mysql-operator mysql-operator/mysql-operator --namespace platform
+
+# Install innodb cluster
+
+helm install mysqlcluster mysql-operator/mysql-innodbcluster --namespace usermanagement --create-namespace --set credentials.root.user='root' --set credentials.root.password='password' --set credentials.root.host='%' --set serverInstances=1 --set routerInstances=1 --set tls.useSelfSigned=true
+
+
+# Check db:
+
+kubectl run --rm -it myshell --image=mysql/mysql-operator -- mysqlsh
+If you don't see a command prompt, try pressing enter.
+
+MySQL JS>  \connect root@mycluster
+
+Creating a session to 'root@mycluster'
+Please provide the password for 'root@mycluster': ******
+
+MySQL mycluster JS>
+
+
+# Intall strimzi (kafka operator)
+
+helm repo add strimzi https://strimzi.io/charts/
+helm install strimzi/strimzi-kafka-operator
+
+create a cluster using a standard cluster def. see kafka-cluster.yaml inside the k8s resources folder.
+create a topic using the kafka-topic.yaml inside the k8s resource folder
+
+# Create topics
+
+please use the kafka-topics.yaml file to create the topics needed for this PoC
+
+# Install istio:
+
+follow the steps here: https://istio.io/latest/docs/setup/getting-started/
+
+#Inject the user management namespace for istio enablement
+kubectl label ns usermanagement istio-injection=enabled
+
+
+# Inject the usermanagement namespace with istio:
+kubectl label namespace usermanagement istio-injection=enabled --overwrite
