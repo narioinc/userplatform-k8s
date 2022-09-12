@@ -34,6 +34,8 @@ helm install strimzi strimzi/strimzi-kafka-operator -n platform
 
 create a cluster using a standard cluster def. see kafka-cluster.yaml inside the k8s resources folder.
 create a topic using the kafka-topic.yaml inside the k8s resource folder
+kubectl apply -f .\userplatform-k8s\kafka\kafka-cluster.yaml -n platform
+kubectl apply -f .\userplatform-k8s\kafka\kafka-topic.yaml -n platform
 
 # Create topics
 
@@ -42,10 +44,10 @@ please use the kafka-topics.yaml file to create the topics needed for this PoC
 # Install istio:
 
 follow the steps here: https://istio.io/latest/docs/setup/getting-started/
+istioctl install --set profile=demo -y
 
 #Inject the user management namespace for istio enablement
 kubectl label ns usermanagement istio-injection=enabled
-
 
 # Inject the usermanagement namespace with istio:
 kubectl label namespace usermanagement istio-injection=enabled --overwrite
@@ -53,3 +55,8 @@ kubectl label namespace usermanagement istio-injection=enabled --overwrite
 # install argocd
 kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+# install argo-rollout
+kubectl create namespace argo-rollouts
+kubectl apply -n argo-rollouts -f https://github.com/argoproj/argo-rollouts/releases/latest/download/install.yaml
+
