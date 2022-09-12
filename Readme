@@ -26,6 +26,11 @@ Please provide the password for 'root@mycluster': ******
 
 MySQL mycluster JS>
 
+# create db:
+1) create db usermanagement
+
+# install keycloak
+kubectl create -f https://raw.githubusercontent.com/keycloak/keycloak-quickstarts/latest/kubernetes-examples/keycloak.yaml
 
 # Intall strimzi (kafka operator)
 

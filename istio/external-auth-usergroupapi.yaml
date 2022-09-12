@@ -1,7 +1,7 @@
 apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
 metadata:
-  name: ext-authz
+  name: ext-authz-usergroupapi
 spec:
   selector:
     matchLabels:
