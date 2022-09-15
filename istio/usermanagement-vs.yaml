@@ -20,7 +20,7 @@ spec:
     - destination:
         host: user-api
         port:
-          number: 80
+          number: 80            
 
 ---
 apiVersion: networking.istio.io/v1alpha3
@@ -43,7 +43,7 @@ spec:
     - destination:
         host: usergroup-api
         port:
-          number: 80
+          number: 80    
 
 ---
 apiVersion: networking.istio.io/v1alpha3

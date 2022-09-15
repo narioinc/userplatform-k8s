@@ -3,6 +3,12 @@
 Follow steps here https://minikube.sigs.k8s.io/docs/start/
 Run minikube start in a terminal after installation
 
+# create 4 namespaces
+1) usermanagement
+2) platform
+3) argocd
+4) argo-rollouts
+
 # Setup mysql operator
 
 helm repo add mysql-operator https://mysql.github.io/mysql-operator/
@@ -65,3 +71,15 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 kubectl create namespace argo-rollouts
 kubectl apply -n argo-rollouts -f https://github.com/argoproj/argo-rollouts/releases/latest/download/install.yaml
 
+
+# Steps to start using argocd
+
+1) add a project in the UI and ensure that the porject has access to the self cluster and * namspaces. In prod, it can be made to access only cerain namespaces
+2) add repositories using SSH connection and add them to the project as scoped repos
+3) create an app by giving it a name, the project to which it belongs and the repo and the directory where the helm chart of the kubectl yaml files are kept. also dont forget to provide the namespace of the app
+4) once created,  sync the app to the cluster. 
+
+# install argo rollout cli plugin for kubectl
+https://argoproj.github.io/argo-rollouts/features/kubectl-plugin/
+
+#
